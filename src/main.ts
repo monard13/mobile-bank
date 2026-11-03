@@ -13,9 +13,28 @@ import {
   type ViewId,
 } from './utils/bankingState';
 
-const views: ViewId[] = ['prelogin', 'home', 'productos', 'detalle_cuenta'];
+const views: ViewId[] = ['prelogin', 'pin', 'home', 'productos', 'detalle_cuenta'];
+const DEMO_PIN = '101380';
 let state: AppState = createInitialState();
 let toastTimer: ReturnType<typeof setTimeout> | undefined;
+let pinTimer: ReturnType<typeof setTimeout> | undefined;
+let authenticated = false;
+
+const pinForm = document.querySelector<HTMLFormElement>('#pin-form')!;
+const pinInput = document.querySelector<HTMLInputElement>('#pin-input')!;
+const pinError = document.querySelector<HTMLElement>('#pin-error')!;
+const pinSubmit = document.querySelector<HTMLButtonElement>('#pin-submit')!;
+
+function resetPin() {
+  clearTimeout(pinTimer);
+  pinInput.value = '';
+  pinInput.disabled = false;
+  pinInput.removeAttribute('aria-invalid');
+  pinError.textContent = '';
+  pinSubmit.disabled = false;
+  pinSubmit.textContent = 'Entrar a mi cuenta';
+  document.getElementById('view-pin')!.classList.remove('pin-validating');
+}
 
 function renderBalances() {
   document.querySelectorAll<HTMLElement>('[data-balance-account]').forEach((node) => {
@@ -74,17 +93,32 @@ function render() {
 
 function goTo(view: ViewId) {
   if (!views.includes(view)) return;
+  if (!authenticated && view !== 'prelogin' && view !== 'pin') view = 'pin';
+  if (view === 'prelogin') {
+    authenticated = false;
+    resetPin();
+  }
+  if (view === 'pin' && state.currentView !== 'pin') resetPin();
   state = navigateToView(state, view);
   render();
+  if (view === 'pin') requestAnimationFrame(() => pinInput.focus());
 }
 
 function openAccountDetail(accountId: AccountId, sourceView: ViewId) {
+  if (!authenticated) {
+    goTo('pin');
+    return;
+  }
   if (!ACCOUNTS[accountId] || !['home', 'productos'].includes(sourceView)) return;
   state = navigateToView({ ...state, currentView: sourceView }, 'detalle_cuenta', accountId);
   render();
 }
 
 function goBackFromDetail() {
+  if (!authenticated) {
+    goTo('pin');
+    return;
+  }
   state = navigateBackFromDetail(state);
   render();
 }
@@ -139,7 +173,38 @@ window.appRouter = {
   switchDetailTab, showToast, copyAccountData, getState: () => ({ ...state }),
 };
 
+pinInput.addEventListener('input', () => {
+  pinInput.value = pinInput.value.replace(/\D/g, '').slice(0, 6);
+  pinInput.removeAttribute('aria-invalid');
+  pinError.textContent = '';
+  if (pinInput.value.length === 6) pinForm.requestSubmit();
+});
+
+pinForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (pinInput.disabled) return;
+  if (pinInput.value !== DEMO_PIN) {
+    pinError.textContent = pinInput.value.length === 6 ? 'Clave incorrecta. Inténtalo de nuevo.' : 'Ingresa los 6 dígitos de tu clave.';
+    pinInput.setAttribute('aria-invalid', 'true');
+    pinInput.value = '';
+    pinInput.focus();
+    return;
+  }
+
+  pinInput.disabled = true;
+  pinSubmit.disabled = true;
+  pinSubmit.textContent = 'Ingresando...';
+  document.getElementById('view-pin')!.classList.add('pin-validating');
+  const delay = matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 520;
+  pinTimer = setTimeout(() => {
+    authenticated = true;
+    state = navigateToView(state, 'home');
+    render();
+    resetPin();
+  }, delay);
+});
+
 if (new URLSearchParams(location.search).get('autostart') === '1') {
-  state = navigateToView(state, 'home');
+  state = navigateToView(state, 'pin');
 }
 render();

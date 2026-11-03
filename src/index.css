@@ -27,6 +27,44 @@
   overflow-wrap: anywhere;
 }
 
+.pin-input {
+  letter-spacing: 0.55em;
+  padding-left: 0.55em;
+}
+
+.pin-content {
+  justify-content: safe center;
+}
+
+.pin-input[aria-invalid="true"] {
+  border-color: #ec111a;
+  animation: pin-shake 320ms ease-in-out;
+}
+
+.pin-progress > div {
+  width: 0;
+}
+
+.pin-validating .pin-progress > div {
+  width: 100%;
+  transition: width 520ms linear;
+}
+
+#view-pin.active-view,
+#view-home.active-view {
+  animation: account-enter 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes account-enter {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pin-shake {
+  25%, 75% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+}
+
 @media (max-width: 640px) {
   html,
   body {
@@ -75,7 +113,18 @@
 
 @media (prefers-reduced-motion: reduce) {
   .spa-view,
-  #phone-toast {
+  #phone-toast,
+  .pin-input[aria-invalid="true"] {
+    transition: none;
+    animation: none;
+  }
+
+  #view-pin.active-view,
+  #view-home.active-view {
+    animation: none;
+  }
+
+  .pin-validating .pin-progress > div {
     transition: none;
   }
 }

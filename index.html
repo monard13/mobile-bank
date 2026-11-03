@@ -152,7 +152,7 @@
             <button
               type="button"
               id="btn-login"
-              onclick="window.appRouter.goTo('home')"
+              onclick="window.appRouter.goTo('pin')"
               class="w-full py-3.5 bg-[#EC111A] hover:bg-[#d00f17] active:scale-[0.99] text-white font-semibold rounded-xl shadow-md transition-all text-base cursor-pointer"
             >
               Iniciar sesión
@@ -200,6 +200,49 @@
             </a>
           </div>
         </div>
+      </div>
+
+      <!-- INGRESO CON CLAVE DE DEMOSTRACIÓN -->
+      <div
+        id="view-pin"
+        data-testid="view-pin"
+        class="spa-view app-screen w-full bg-white rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
+      >
+        <header class="app-header flex items-center gap-4 px-6 pt-5 pb-4 border-b border-gray-100">
+          <button
+            type="button"
+            aria-label="Volver a bienvenida"
+            onclick="window.appRouter.goTo('prelogin')"
+            class="text-gray-700 p-1 -ml-1 rounded-lg hover:bg-gray-100 cursor-pointer"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="text-base font-bold text-gray-900">Ingresar</span>
+        </header>
+        <main class="pin-content flex-1 overflow-y-auto px-6 py-8 flex flex-col items-center justify-center text-center">
+          <div class="w-16 h-16 rounded-2xl bg-red-50 text-[#EC111A] flex items-center justify-center mb-6">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path stroke-linecap="round" d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1" fill="currentColor"/></svg>
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900">Ingresa tu clave</h1>
+          <p class="text-sm text-gray-500 mt-2 mb-8 max-w-[270px]">Escribe tu clave de 6 dígitos para entrar a tu cuenta.</p>
+          <form id="pin-form" novalidate class="w-full max-w-[300px]">
+            <label for="pin-input" class="sr-only">Clave de 6 dígitos</label>
+            <input
+              id="pin-input"
+              type="password"
+              inputmode="numeric"
+              pattern="[0-9]{6}"
+              maxlength="6"
+              autocomplete="off"
+              aria-describedby="pin-error"
+              class="pin-input w-full h-16 rounded-2xl border-2 border-gray-200 bg-white text-center text-2xl font-bold text-gray-900 outline-none focus:border-[#007E8A] transition-colors"
+            />
+            <p id="pin-error" role="alert" class="min-h-6 mt-3 text-sm font-medium text-[#EC111A]"></p>
+            <div class="pin-progress h-1 mt-2 rounded-full bg-gray-100 overflow-hidden"><div class="h-full bg-[#EC111A]"></div></div>
+            <button id="pin-submit" type="submit" class="w-full mt-6 py-3.5 bg-[#EC111A] hover:bg-[#d00f17] text-white font-semibold rounded-xl shadow-md transition-colors cursor-pointer">Entrar a mi cuenta</button>
+          </form>
+          <p class="text-xs text-gray-400 mt-6">Acceso de demostración</p>
+        </main>
       </div>
 
       <!-- ==========================================

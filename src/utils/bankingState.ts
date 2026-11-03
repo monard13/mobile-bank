@@ -1,4 +1,4 @@
-export type ViewId = 'prelogin' | 'home' | 'productos' | 'detalle_cuenta';
+export type ViewId = 'prelogin' | 'pin' | 'home' | 'productos' | 'detalle_cuenta';
 export type AccountId = 'sbp_pen' | 'intangible_pen' | 'sbp_usd';
 export type DetailTabId = 'movimientos' | 'quiero';
 

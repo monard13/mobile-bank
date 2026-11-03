@@ -1,6 +1,8 @@
 # Mobile Bank
 
-Simulador de banca móvil con cuatro vistas: bienvenida, inicio, productos y detalle de cuenta. Los saldos y datos mostrados son de demostración. No realiza operaciones bancarias reales.
+Simulador de banca móvil con bienvenida, ingreso por PIN, inicio, productos y detalle de cuenta. Los saldos y datos mostrados son de demostración. No realiza operaciones bancarias reales.
+
+La clave de acceso de demostración es `101380`. La validación ocurre en el navegador; no sustituye una autenticación real ni protege datos sensibles.
 
 ## Ejecutar en local
 
