@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Scotiabank Perú - Banca Móvil SPA</title>
     <meta name="description" content="Simulador interactivo Single Page Application (SPA) de Banca Móvil con navegación entre vistas, control de privacidad de saldos y detalle de cuentas." />
     <meta property="og:title" content="Scotiabank Perú - Banca Móvil SPA" />
@@ -65,7 +65,7 @@
       }
     </style>
   </head>
-  <body class="min-h-screen bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 flex items-center justify-center p-4 md:p-8 select-none">
+  <body class="min-h-screen bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 flex items-center justify-center p-4 md:p-8">
 
     <!-- PANEL DE CONTROL DE DESARROLLO (Dev Toolbar) -->
     <aside
@@ -111,7 +111,7 @@
     </aside>
 
     <!-- CONTENEDOR PRINCIPAL DEL SIMULADOR MÓVIL -->
-    <div class="relative w-full max-w-[390px] h-[min(844px,calc(100dvh-2rem))] flex items-center justify-center">
+    <div class="app-shell relative w-full max-w-[390px] flex items-center justify-center">
 
       <!-- ==========================================
            PANTALLA 1: prelogin.html (Bienvenida)
@@ -119,9 +119,9 @@
       <div
         id="view-prelogin"
         data-testid="view-prelogin"
-        class="spa-view active-view visible-view w-full max-w-[390px] h-[min(844px,calc(100dvh-2rem))] bg-white rounded-[36px] overflow-hidden shadow-2xl relative flex-col justify-between"
+        class="spa-view app-screen active-view visible-view w-full bg-white rounded-[36px] overflow-hidden shadow-2xl relative flex-col justify-between"
       >
-        <div class="relative h-[55%] w-full bg-slate-900 overflow-hidden">
+        <div class="prelogin-hero relative w-full bg-slate-900 overflow-hidden">
           <!-- Fallback visual estilizado + imagen original con manejo seguro -->
           <div class="absolute inset-0 bg-gradient-to-br from-rose-900 via-slate-800 to-teal-950"></div>
           <img
@@ -129,18 +129,10 @@
             alt="Lifestyle"
             referrerpolicy="no-referrer"
             onerror="this.style.opacity='0'"
-            class="relative w-full h-full object-cover transition-opacity duration-300"
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
           />
           <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20"></div>
-          <div class="absolute top-0 left-0 right-0 px-6 pt-3 flex justify-between items-center text-white text-xs font-semibold z-20">
-            <span>12:55</span>
-            <div class="flex items-center space-x-1.5">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25A9.97 9.97 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10c0 2.33-.8 4.48-2.15 6.19l-.62-.62A8.97 8.97 0 0 0 21 12c0-4.97-4.03-9-9-9z"/></svg>
-              <span class="text-[10px]">5G</span>
-              <div class="w-5 h-2.5 border border-white rounded-sm p-0.5 flex items-center"><div class="bg-white h-full w-full rounded-2xs"></div></div>
-            </div>
-          </div>
-          <div class="absolute top-10 left-6 z-10">
+          <div class="prelogin-logo absolute top-6 left-6 z-10">
             <div class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg p-1.5 overflow-hidden">
               <img
                 src="./assets/aistudio/image_05161fcf.png"
@@ -150,7 +142,7 @@
             </div>
           </div>
         </div>
-        <div class="h-[48%] -mt-6 bg-white rounded-t-[30px] px-6 pt-6 pb-6 flex flex-col justify-between z-20 shadow-[0_-8px_20px_rgba(0,0,0,0.06)]">
+        <div class="prelogin-panel -mt-6 bg-white rounded-t-[30px] px-6 pt-6 pb-6 flex flex-col justify-between z-20 shadow-[0_-8px_20px_rgba(0,0,0,0.06)]">
           <div class="space-y-4">
             <div>
               <p class="text-sm font-medium text-gray-500">Bienvenido de nuevo</p>
@@ -216,9 +208,9 @@
       <div
         id="view-home"
         data-testid="view-home"
-        class="spa-view w-full max-w-[390px] h-[min(844px,calc(100dvh-2rem))] bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
+        class="spa-view app-screen w-full bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
       >
-        <header class="bg-white px-6 pt-4 pb-3 border-b border-gray-100 flex justify-between items-center z-10">
+        <header class="app-header bg-white px-6 pt-4 pb-3 border-b border-gray-100 flex justify-between items-center z-10">
           <div class="flex items-center space-x-2">
             <div class="w-8 h-8 rounded-lg bg-white border border-gray-100 shadow-xs p-1 flex items-center justify-center overflow-hidden">
               <img
@@ -376,7 +368,7 @@
             </div>
           </section>
         </main>
-        <nav class="bg-white border-t border-gray-200 px-6 py-2 flex justify-between items-center z-10">
+        <nav class="app-bottom-nav bg-white border-t border-gray-200 px-6 py-2 flex justify-between items-center z-10">
           <button
             type="button"
             onclick="window.appRouter.goTo('home')"
@@ -418,9 +410,9 @@
       <div
         id="view-productos"
         data-testid="view-productos"
-        class="spa-view w-full max-w-[390px] h-[min(844px,calc(100dvh-2rem))] bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
+        class="spa-view app-screen w-full bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
       >
-        <header class="bg-white px-5 pt-4 pb-3 border-b border-gray-200 flex items-center justify-between">
+        <header class="app-header bg-white px-5 pt-4 pb-3 border-b border-gray-200 flex items-center justify-between">
           <button
             type="button"
             id="btn-back-from-productos"
@@ -499,9 +491,9 @@
       <div
         id="view-detalle_cuenta"
         data-testid="view-detalle_cuenta"
-        class="spa-view w-full max-w-[390px] h-[min(844px,calc(100dvh-2rem))] bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
+        class="spa-view app-screen w-full bg-[#F7F8FA] rounded-[36px] overflow-hidden shadow-2xl relative flex-col"
       >
-        <header class="bg-white px-5 pt-4 pb-3 border-b border-gray-200 flex items-center justify-between">
+        <header class="app-header bg-white px-5 pt-4 pb-3 border-b border-gray-200 flex items-center justify-between">
           <button
             type="button"
             id="btn-back-from-detalle"
@@ -532,8 +524,8 @@
             </div>
             <div class="flex justify-between items-end pt-2 border-t border-gray-100 gap-2">
               <div class="text-[11px] text-gray-600 space-y-0.5 min-w-0">
-                <p class="whitespace-nowrap"><span class="font-medium">Número de cuenta:</span> <span id="detail-account-number">Scotiabank: 039-0650-428-83</span></p>
-                <p class="whitespace-nowrap"><span class="font-medium">CCI:</span> <span id="detail-account-cci">009-428-214280390650-40</span></p>
+                <p><span class="font-medium">Número de cuenta:</span> <span id="detail-account-number">Scotiabank: 039-0650-428-83</span></p>
+                <p><span class="font-medium">CCI:</span> <span id="detail-account-cci">009-428-214280390650-40</span></p>
               </div>
               <button
                 type="button"
