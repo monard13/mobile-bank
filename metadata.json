@@ -1,0 +1,6 @@
+{
+  "name": "Scotiabank Perú - Banca Móvil SPA",
+  "description": "Simulador interactivo Single Page Application (SPA) de Banca Móvil con navegación entre vistas, control de privacidad de saldos y detalle de cuentas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
